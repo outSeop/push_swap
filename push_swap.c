@@ -2,28 +2,38 @@
 
 int				main(int argc, char *argv[])
 {
-	t_head		*a;
-	t_head		*b;
+	t_llist		*a;
+	t_llist		*b;
 
-	if ((a = make_stack(argc, argv)) == NULL)
-	{}	// write error
-
-
+	if ((a = make_list(argc, argv)) == NULL)
+		print_error("ERROR - There is wrong argument\n");
+	print_node(a);
+	remove_node_back(a);
+	print_node(a);
 }
 
-t_head				*make_stack(int argc, char *argv)
+t_llist				*make_list(int argc, char *argv[])
 {
-	int			i;
-	t_head		*stack;
+	t_llist		*list;
 
 	if (argc < 2)
 		return (NULL);
-	stack = malloc(sizeof(t_node));
-	stack->next = NULL;
-	i = 0;
-	while (i < argc)
+	list = malloc(sizeof(t_llist));
+	list->head = malloc(sizeof(t_head));
+	list->head->next = NULL;
+	list->tail = malloc(sizeof(t_tail));
+	list->tail->prev = NULL;
+	list->size = 0;
+	while (list->size < argc - 1)
 	{
-		add_node(stack, argv[i + 1]);
-		i++;
+		add_node(list, argv[list->size + 1]);
+		list->size++;
 	}
+	return (list);
+}
+
+void				print_error(char *error)
+{
+	write(1, error, ft_strlen(error));
+	exit(0);
 }
