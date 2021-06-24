@@ -1,5 +1,17 @@
 #include "push_swap.h"
 
+t_llist				*make_list(int argc, char *argv[])
+{
+	t_llist		*list;
+
+	if (argc < 2)
+		return (NULL);
+	list = init_list('a');
+	while (list->size < argc - 1)
+		add_node(list, atoi(argv[list->size + 1]));
+	return (list);
+}
+
 void		add_node(t_llist *list, int value)
 {
 	t_node	*new_node;
@@ -34,11 +46,6 @@ void		remove_node_back(t_llist *list)
 	list->tail->prev->next = list->head;
 	list->head->prev = list->tail->prev;
 	list->size--;
-}
-
-int			get_top(t_head *head)
-{
-
 }
 
 void		print_node(t_llist *list)

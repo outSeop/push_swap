@@ -11,28 +11,36 @@ void		swap(t_llist *list, char c)
 		list->tail->value = list->tail->prev->value;
 		list->tail->prev->value = tmp;
 	}
+	printf("s%c\n", list->name);
 }
 
 void		push(t_llist *first, t_llist *second, char c)
 {
 	int		tmp;
 
-	if (first == NULL)
+	if (first->head == NULL)
 		return ;
 	add_node(second, first->tail->value);
 	remove_node_back(first);
+	printf("p%c\n", first->name);
 }
 
 void		rotate(t_llist *list, char c)
 {
+	if (list->head == NULL)
+		return ;
 	list->head = list->head->next;
 	list->tail = list->tail->next;
+	printf("r%c\n", list->name);
 }
 
 void		r_rotate(t_llist *list, char c)
 {
+	if (list->head == NULL)
+		return ;
 	list->head = list->head->prev;
 	list->tail = list->tail->prev;
+	printf("rr%c\n", list->name);
 }
 
 void		print_operation(char *operation, char *c)
