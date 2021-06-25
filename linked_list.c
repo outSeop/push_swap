@@ -2,13 +2,23 @@
 
 t_llist				*make_list(int argc, char *argv[])
 {
-	t_llist		*list;
+	t_llist			*list;
+	int				i;
 
 	if (argc < 2)
 		return (NULL);
 	list = init_list('a');
-	while (list->size < argc - 1)
-		add_node(list, atoi(argv[list->size + 1]));
+	i = 0;
+	while (i < argc - 1)
+	{
+		if (!check_number(argv[i + 1]))
+			return(NULL);
+		if (strchr(argv[i + 1] , ' '))
+			add_node_split(list, argv[i + 1]);
+		else
+			add_node(list, atoi(argv[i + 1]));
+		i++;
+	}
 	return (list);
 }
 
@@ -39,13 +49,26 @@ void		add_node(t_llist *list, int value)
 	list->size++;
 }
 
-void		remove_node_back(t_llist *list)
+void		add_node_split(t_llist *list, char *str)
 {
-	t_node	*removed_node;
+	char	**new_str;
+	int		i;
 
+	new_str = ft_split(str, ' ');
+	i = 0;
+	while ((new_str[i]))
+		add_node(list, atoi(new_str[i++]));
+}
+
+int			pop(t_llist *list)
+{
+	int		value;
+
+	value = list->tail->value;
 	list->tail->prev->next = list->head;
 	list->head->prev = list->tail->prev;
 	list->size--;
+	return (value);
 }
 
 void		print_node(t_llist *list)
@@ -53,8 +76,7 @@ void		print_node(t_llist *list)
 	t_node	*node;
 	int		i;
 
-	printf("== ==\n");
-	printf("%d %d\n", list->head->value, list->tail->value);
+	printf("Head: %-3d\nTail: %-3d\n", list->head->value, list->tail->value);
 	i = 0;
 	node = list->head;
 	printf("=== up ===\n");

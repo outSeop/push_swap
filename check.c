@@ -6,31 +6,36 @@ int			check_arument(int argc, char *arcv[])
 		return (FALSE);
 }
 
-int			check_duplicate(int argc, char *argv[])
+int			check_duplicate(t_llist *list)
 {
 	int		i;
 	int		j;
+	t_node	*base;
+	t_node	*comp;
 
+	base = list->head;
+	comp = list->head->next;
 	i = 0;
-	while (i < argc - 1)
+	while (i < list->size)
 	{
-		j = i;
-		while (j < argc - 1)
+		j = i + 1;
+		while (j < list->size)
 		{
-			if (argv)
+			if (base->value == comp->value)
+				return (FALSE);
+			comp = comp->next;
+			j++;
 		}
+		base = base->next;
+		i++;
 	}
-
+	return (TRUE);
 }
 
-char		*parse_string(int argc, char*argv[])
+int			check_number(char *str)
 {
-	char	*str;
-	int		i;
-
-	i = 0;
-	while (i < argc)
-	{
-
-	}
+	while (*str)
+		if ((!ft_isdigit(*str++)) && *str != ' ')
+			return (FALSE);
+	return (TRUE);
 }
