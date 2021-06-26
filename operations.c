@@ -1,43 +1,25 @@
 #include "push_swap.h"
 
-void		swap(t_llist *list, char c)
+void			s(t_llist *first)
 {
-	int		tmp;
-	if (list->size < 2)
-		return ;
-	else
-	{
-		tmp = list->tail->value;
-		list->tail->value = list->tail->prev->value;
-		list->tail->prev->value = tmp;
-	}
-	printf("s%c\n", list->name);
+	swap(first);
+	printf("s%c\n", first->name);
 }
 
-void		push(t_llist *first, t_llist *second, char c)
+void			p(t_llist *first, t_llist *second)
 {
-	int		tmp;
-
-	if (first->head == NULL)
-		return ;
-	add_node(second, pop(first));
+	push(first, second);
 	printf("p%c\n", first->name);
 }
 
-void		rotate(t_llist *list, char c)
+void			r(t_llist *first)
 {
-	if (list->head == NULL)
-		return ;
-	list->head = list->head->next;
-	list->tail = list->tail->next;
-	printf("r%c\n", list->name);
+	rotate(first);
+	printf("r%c\n", first->name);
 }
 
-void		r_rotate(t_llist *list, char c)
+void			rr(t_llist *first)
 {
-	if (list->head == NULL)
-		return ;
-	list->head = list->head->prev;
-	list->tail = list->tail->prev;
-	printf("rr%c\n", list->name);
+	r_rotate(first);
+	printf("rr%c\n", first->name);
 }

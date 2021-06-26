@@ -4,6 +4,7 @@ int			check_arument(int argc, char *arcv[])
 {
 	if (argc < 2)
 		return (FALSE);
+	return (TRUE);
 }
 
 int			check_duplicate(t_llist *list)
@@ -14,15 +15,18 @@ int			check_duplicate(t_llist *list)
 	t_node	*comp;
 
 	base = list->head;
-	comp = list->head->next;
+	comp = base->next;
 	i = 0;
 	while (i < list->size)
 	{
-		j = i + 1;
-		while (j < list->size)
+		j = i;
+		comp = base->next;
+		while (j < list->size - 1)
 		{
 			if (base->value == comp->value)
+			{
 				return (FALSE);
+			}
 			comp = comp->next;
 			j++;
 		}

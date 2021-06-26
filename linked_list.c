@@ -12,8 +12,8 @@ t_llist				*make_list(int argc, char *argv[])
 	while (i < argc - 1)
 	{
 		if (!check_number(argv[i + 1]))
-			return(NULL);
-		if (strchr(argv[i + 1] , ' '))
+			return (NULL);
+		if (strchr(argv[i + 1], ' '))
 			add_node_split(list, argv[i + 1]);
 		else
 			add_node(list, atoi(argv[i + 1]));
@@ -63,10 +63,14 @@ void		add_node_split(t_llist *list, char *str)
 int			pop(t_llist *list)
 {
 	int		value;
+	t_node	*node;
 
+	node = list->tail;
 	value = list->tail->value;
 	list->tail->prev->next = list->head;
 	list->head->prev = list->tail->prev;
+	list->tail = list->tail->prev;
+	free(node);
 	list->size--;
 	return (value);
 }

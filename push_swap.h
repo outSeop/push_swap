@@ -4,7 +4,7 @@
 # include <stdio.h> // will be deleted
 # include <stdlib.h>
 # include <string.h>
- # include "Libft/libft.h"
+# include "Libft/libft.h"
 
 # define TRUE 1
 # define FALSE 0
@@ -40,12 +40,28 @@ int					pop(t_llist *list);
 void				add_node_split(t_llist *list, char *str);
 
 /*
-** operations.c
+** base_operations.c
 */
-void				swap(t_llist *list, char c);
-void				push(t_llist *first, t_llist *second, char c);
-void				rotate(t_llist *list, char c);
-void				r_rotate(t_llist *list, char c);
+void				swap(t_llist *list);
+void				push(t_llist *first, t_llist *second);
+void				rotate(t_llist *list);
+void				r_rotate(t_llist *list);
+
+/*
+** operation.c
+*/
+void				s(t_llist *first);
+void				p(t_llist *first, t_llist *second);
+void				r(t_llist *first);
+void				rr(t_llist *first);
+
+/*
+** operation_double.c
+*/
+void				d_ss(t_llist *first, t_llist *second);
+void				d_rr(t_llist *first, t_llist *second);
+void				d_rrr(t_llist *first, t_llist *second);
+
 
 /*
 ** check.c
@@ -55,9 +71,22 @@ int					check_duplicate(t_llist *list);
 int					check_number(char *str);
 
 /*
+** sort.c
+*/
+int					*sort(t_llist *list);
+int					*list_to_array(t_llist *list);
+
+/*
+** solve.c
+*/
+void				solve(t_llist *a, t_llist *b);
+int					*find_pivots(int *array, int size);
+
+/*
 ** will be deleted
 */
 void				print_node(t_llist *list);
+void				print_ab(t_llist *a, t_llist *b);
 
 
 #endif

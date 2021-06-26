@@ -1,22 +1,22 @@
 #include "push_swap.h"
 
-void			swap_both(t_llist *a, t_llist *b)
+void			d_ss(t_llist *first, t_llist *second)
 {
-	swap(a, 0);
-	swap(b, 0);
-	write(1, "ss", 2);
+	swap(first);
+	swap(second);
+	printf("ss\n");
 }
 
-void			rotate_both(t_llist *a, t_llist *b)
+void			d_rr(t_llist *first, t_llist *second)
 {
-	rotate(a, 0);
-	rotate(b, 0);
-	write(1, "rr", 2);
+	rotate(first);
+	rotate(second);
+	printf("rr\n");
 }
 
-void			r_rotate_both(t_llist *a, t_llist *b)
+void			d_rrr(t_llist *first, t_llist *second)
 {
-	r_rotate(a. 0);
-	r_rotate(b, 0);
-	write(1, "rrr", 3);
+	r_rotate(first);
+	r_rotate(second);
+	printf("rrr\n");
 }
