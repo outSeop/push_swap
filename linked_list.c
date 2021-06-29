@@ -67,15 +67,21 @@ int			pop(t_llist *list)
 
 	node = list->tail;
 	value = list->tail->value;
-	list->tail->prev->next = list->head;
-	list->head->prev = list->tail->prev;
-	list->tail = list->tail->prev;
-	free(node);
+	if (list->size != 1)
+	{
+
+		list->tail->prev->next = list->head;
+		list->head->prev = list->tail->prev;
+		list->tail = list->tail->prev;
+		free(node);
+	}
+	else
+		list->tail = NULL;
 	list->size--;
 	return (value);
 }
 
-void		print_node(t_llist *list)
+void		print_list(t_llist *list)
 {
 	t_node	*node;
 	int		i;
@@ -98,5 +104,18 @@ void		print_node(t_llist *list)
 		printf("%d = %d\n", i, node->value);
 		node = node->prev;
 		i--;
+	}
+}
+
+void				print_node(t_node *node, int size)
+{
+	int				i;
+
+	i = 0;
+	while (i < size)
+	{
+		printf("%d = %d\n", i, node->value);
+		node = node->next;
+		i++;
 	}
 }

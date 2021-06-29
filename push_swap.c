@@ -32,12 +32,14 @@ void				print_error(char *error)
 
 void			print_ab(t_llist *a, t_llist *b)
 {
+	printf("a: ");
 	for (int i = 0; i < a->size; i++)
 	{
 		printf("%3d |", a->head->value);
 		a->head = a->head->next;
 	}
 	printf("\n");
+	printf("b: ");
 	for (int i = 0; i < b->size; i++)
 	{
 		printf("%3d |", b->head->value);

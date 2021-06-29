@@ -34,7 +34,6 @@ void				print_error(char *error);
 ** linked_list.c
 */
 void				add_node(t_llist *list, int value);
-t_node				*get_last_node(t_node *node);
 t_llist				*make_list(int argc, char *argv[]);
 int					pop(t_llist *list);
 void				add_node_split(t_llist *list, char *str);
@@ -81,12 +80,15 @@ int					*list_to_array(t_llist *list);
 */
 void				solve(t_llist *a, t_llist *b);
 int					*find_pivots(int *array, int size);
+int					*lis(t_llist *list);
 
 /*
 ** will be deleted
 */
-void				print_node(t_llist *list);
+void				print_list(t_llist *list);
+void				print_node(t_node *node, int size);
 void				print_ab(t_llist *a, t_llist *b);
+void				move_value(t_llist *a, t_llist *b, int *pivots);
 
 
 #endif
