@@ -29,16 +29,16 @@ void		move_lis(t_llist *a, t_llist *b, t_lis *lis, int min_value)
 
 	i = 0;
 	list_size = a->size;
+	print_ab(a, b);
 	while (i < list_size)
 	{
 		if (find_value(a->tail->value, lis) == -1)
 			p(b, a);
 		else
 			rr(a);
+		print_ab(a, b);
 		i++;
 	}
-	while (min_value != a->tail->value)
-		r(a);
 }
 
 int			*calc_lis(int *arr, int *size)

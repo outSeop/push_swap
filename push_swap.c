@@ -8,10 +8,8 @@ int				main(int argc, char *argv[])
 	b = init_list('b');
 	if ((a = make_list(argc, argv)) == NULL || !check_duplicate(a))
 		print_error("ERROR - There is wrong argument\n");
+	print_ab(a, b);
 	//solve(a, b);
-	printf("pb\n");
-	printf("pb\n");
-
 }
 
 t_llist				*init_list(char name)

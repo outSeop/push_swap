@@ -8,9 +8,9 @@ void		swap(t_llist *list)
 		return ;
 	else
 	{
-		tmp = list->tail->value;
-		list->tail->value = list->tail->prev->value;
-		list->tail->prev->value = tmp;
+		tmp = list->head->next->value;
+		list->head->next->value = list->head->value;
+		list->head->value = tmp;
 	}
 }
 

@@ -1,2 +1,2 @@
 make
-./push_swap 3 2 1
+./push_swap 1 2 3

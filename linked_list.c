@@ -29,6 +29,7 @@ void		add_node(t_llist *list, int value)
 
 	new_node = malloc(sizeof(t_node));
 	new_node->value = value;
+
 	if (list->head == NULL)
 	{
 		list->head = new_node;
@@ -44,7 +45,7 @@ void		add_node(t_llist *list, int value)
 		list->head->prev = new_node;
 		new_node->prev = list->tail;
 		list->tail->next = new_node;
-		list->tail = new_node;
+		list->head = new_node;
 	}
 	list->size++;
 }
@@ -65,14 +66,15 @@ int			pop(t_llist *list)
 	int		value;
 	t_node	*node;
 
-	node = list->tail;
-	value = list->tail->value;
+	node = list->head;
+	value = list->head->value;
 	if (list->size != 1)
 	{
+		list->head->next->prev = list->tail;
+		list->tail->next = list->head->next;
+		list->head = list->head->next;
 
-		list->tail->prev->next = list->head;
-		list->head->prev = list->tail->prev;
-		list->tail = list->tail->prev;
+
 		free(node);
 	}
 	else
