@@ -10,8 +10,10 @@ SRCS =	push_swap.c \
 		solve.c \
 		sort.c \
 		check.c \
+		lis.c \
+		node.c \
 
-GCC_FLAG = #-Wall -Werror -Wextra #-g -fsanitize=address
+GCC_FLAG = -g -fsanitize=address
 CC = gcc $(GCC_FLAG)
 
 OBJS = $(SRCS:.c=.o)
@@ -33,9 +35,7 @@ $(NAME_CK): libft $(OBJS) $(OBJS_CK)
 	$(CC) -o $@ $(OBJS) $(OBJS_CK) -Llibft -lft -I./
 
 clean:
-	rm -f srcs/*.o
-	rm -f printf/*.o
-	rm -f gnl/*.o
+	rm -f *.o
 	make -C Libft/ clean
 
 fclean: clean

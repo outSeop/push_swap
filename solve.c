@@ -7,7 +7,7 @@ void			solve(t_llist *a, t_llist *b)
 	int			i;
 	int			min_value;
 
-	lis(a);
+	lis(a, b);
 }
 
 void			move_value(t_llist *a, t_llist *b, int *pivots)
@@ -35,31 +35,6 @@ int				*find_pivots(int *array, int size)
 	return (pivots);
 }
 
-int				*lis(t_llist *list)
-{
-	int			i;
-	int			*dp;
-	t_node		*node;
-	int			*before_index;
-
-	before_index = malloc(sizeof(int) * list->size);
-	before_index[0] = -1;
-	dp = malloc(sizeof(int) * list->size);
-	node = list->head;
-	dp[0] = 0[sort(list)];
-	while (1)
-	{
-		if (dp[0] == node->value)
-			break ;
-		node = node->next;
-	}
-	i = 0;
-	while (i < list->size)
-	{
-
-	}
-	return (dp);
-}
 
 int			find_index(int num, int *dp, int size)
 {

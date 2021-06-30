@@ -8,6 +8,14 @@
 
 # define TRUE 1
 # define FALSE 0
+# define INT_MIN -2147483648
+# define INT_MAX 2147483647
+
+typedef struct		s_lis
+{
+	int				*array;
+	int				size;
+}					t_lis;
 
 typedef struct		s_node
 {
@@ -80,7 +88,21 @@ int					*list_to_array(t_llist *list);
 */
 void				solve(t_llist *a, t_llist *b);
 int					*find_pivots(int *array, int size);
-int					*lis(t_llist *list);
+
+/*
+** lis.c
+*/
+int					*lis(t_llist *a, t_llist *b);
+int					*calc_lis(int *arr, int *size);
+int					lower_bound(int *arr, int value, int size);
+void		move_lis(t_llist *a, t_llist *b, t_lis *lis, int min_value);
+int			find_value(int value, t_lis *lis);
+
+/*
+** node.c
+*/
+int			*nodes_to_array(t_node *node, int size);
+
 
 /*
 ** will be deleted
