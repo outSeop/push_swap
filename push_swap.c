@@ -4,12 +4,30 @@ int				main(int argc, char *argv[])
 {
 	t_llist		*a;
 	t_llist		*b;
+	char		*str;
 
 	b = init_list('b');
-	if ((a = make_list(argc, argv)) == NULL || !check_duplicate(a))
-		print_error("ERROR - There is wrong argument\n");
+
 	print_ab(a, b);
 	//solve(a, b);
+}
+
+char			**split_arg(int argc, char *argv[])
+{
+	int			i;
+	t_arg		*arg;
+	t_arg		*head;
+
+	arg = malloc(sizeof(t_arg));
+	head = arg;
+	i = 0;
+	while (i < argc - 1)
+	{
+		if (strchr(argv[i + 1], ' '))
+			add_node_split(list, argv[i + 1]);
+		else
+			add_node(list, atoi(argv[i + 1]));
+	}
 }
 
 t_llist				*init_list(char name)

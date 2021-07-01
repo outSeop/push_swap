@@ -8,8 +8,15 @@
 
 # define TRUE 1
 # define FALSE 0
+# define OK 0
 # define INT_MIN -2147483648
 # define INT_MAX 2147483647
+
+typedef struct		s_arg
+{
+	struct s_arg	*next;
+	char			*str
+}					t_arg;
 
 typedef struct		s_lis
 {

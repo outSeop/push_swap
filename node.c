@@ -1,17 +1,17 @@
 #include "push_swap.h"
 
-int			*nodes_to_array(t_node *node, int size)
+int			*nodes_to_array_back(t_node *node, int size)
 {
 	int		*array;
 	int		i;
 
-	array = malloc(sizeof(int) * (size + 1));
-	i = 1;
-	while (i < size + 1)
+	array = ft_calloc(size, sizeof(int));
+	i = size - 1
+	while (i >= 0)
 	{
 		array[i] = node->value;
 		node = node->next;
-		i++;
+		i--;
 	}
 	return (array);
 }

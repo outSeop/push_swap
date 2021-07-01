@@ -1,13 +1,13 @@
 #include "push_swap.h"
 
-int			check_arument(int argc, char *arcv[])
+char		*check_arg_num(int argc)
 {
 	if (argc < 2)
-		return (FALSE);
-	return (TRUE);
+		return ("Too few arguments");
+	return (OK);
 }
 
-int			check_duplicate(t_llist *list)
+char		*check_duplicate(t_llist *list)
 {
 	int		i;
 	int		j;
@@ -25,7 +25,7 @@ int			check_duplicate(t_llist *list)
 		{
 			if (base->value == comp->value)
 			{
-				return (FALSE);
+				return ("Duplicate arguments");
 			}
 			comp = comp->next;
 			j++;
@@ -33,13 +33,21 @@ int			check_duplicate(t_llist *list)
 		base = base->next;
 		i++;
 	}
-	return (TRUE);
+	return (OK);
 }
 
-int			check_number(char *str)
+int			check_number()
 {
-	while (*str)
-		if ((!ft_isdigit(*str++)) && *str != ' ')
-			return (FALSE);
-	return (TRUE);
+	int		i;
+
+	i = 0;
+	while (i < list->size)
+	{
+
+	}
+}
+
+int			check_sign(char *str)
+{
+
 }

@@ -11,8 +11,6 @@ t_llist				*make_list(int argc, char *argv[])
 	i = 0;
 	while (i < argc - 1)
 	{
-		if (!check_number(argv[i + 1]))
-			return (NULL);
 		if (strchr(argv[i + 1], ' '))
 			add_node_split(list, argv[i + 1]);
 		else
