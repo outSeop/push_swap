@@ -12,6 +12,13 @@
 # define INT_MIN -2147483648
 # define INT_MAX 2147483647
 
+typedef struct		s_calis
+{
+	int				*dp;
+	int				*res;
+	int				*v;
+}					t_calis;
+
 typedef struct		s_arg
 {
 	struct s_arg	*next;
@@ -49,7 +56,7 @@ void				print_error(char *error);
 ** linked_list.c
 */
 void				add_node(t_llist *list, int value);
-t_llist				*make_list(int argc, char *argv[]);
+t_llist				*make_list(char **str);
 int					pop(t_llist *list);
 void				add_node_split(t_llist *list, char *str);
 
@@ -88,7 +95,8 @@ int					check_number(char *str);
 ** sort.c
 */
 int					*sort(t_llist *list);
-int					*list_to_array(t_llist *list);
+int					*list_to_array_llist(t_llist *list);
+char				**list_to_array_arg(t_arg *arg);
 
 /*
 ** solve.c

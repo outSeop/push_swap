@@ -36,18 +36,31 @@ char		*check_duplicate(t_llist *list)
 	return (OK);
 }
 
-int			check_number()
+int			check_number(char **str)
 {
 	int		i;
+	int		j;
+	char	c;
 
 	i = 0;
-	while (i < list->size)
+	while (str[i])
 	{
-
+		if (!check_sign(str[i]))
+			return (FALSE);
+		j = 1;
+		while (c = str[i][j])
+		{
+			if (!ft_isdigit(c))
+				return (FALSE);
+			j++;
+		}
 	}
+	return (TRUE);
 }
 
 int			check_sign(char *str)
 {
-
+	if (str[0] == '-' || str[0] == '+' || ft_isdigit(str[0]))
+		return (TRUE);
+	return (FALSE);
 }

@@ -4,10 +4,12 @@ int				main(int argc, char *argv[])
 {
 	t_llist		*a;
 	t_llist		*b;
-	char		*str;
+	char		**str;
 
 	b = init_list('b');
-
+	if (check_number(str = split_arg(argc, argv) == FALSE);
+		return (0);
+	make_list(str);
 	print_ab(a, b);
 	//solve(a, b);
 }
@@ -19,15 +21,17 @@ char			**split_arg(int argc, char *argv[])
 	t_arg		*head;
 
 	arg = malloc(sizeof(t_arg));
+	arg->next = NULL;
 	head = arg;
 	i = 0;
 	while (i < argc - 1)
 	{
 		if (strchr(argv[i + 1], ' '))
-			add_node_split(list, argv[i + 1]);
+			add_node_split(head, argv[i + 1]);
 		else
-			add_node(list, atoi(argv[i + 1]));
+			add_node(head, argv[i + 1]);
 	}
+	return (list_to_array_arg(head));
 }
 
 t_llist				*init_list(char name)

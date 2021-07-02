@@ -1,62 +1,43 @@
 #include "push_swap.h"
 
-t_llist				*make_list(int argc, char *argv[])
+t_llist				*make_list(char **str)
 {
 	t_llist			*list;
 	int				i;
 
-	if (argc < 2)
-		return (NULL);
 	list = init_list('a');
 	i = 0;
-	while (i < argc - 1)
+	while (str[i])
 	{
-		if (strchr(argv[i + 1], ' '))
-			add_node_split(list, argv[i + 1]);
-		else
-			add_node(list, atoi(argv[i + 1]));
+		append(list, str[i]);
 		i++;
 	}
 	return (list);
 }
 
-void		add_node(t_llist *list, int value)
+void		append(t_llist *list, char *str)
 {
-	t_node	*new_node;
 	t_node	*node;
 
-	new_node = malloc(sizeof(t_node));
-	new_node->value = value;
-
+	node->value = ft_atoi(str);
 	if (list->head == NULL)
 	{
-		list->head = new_node;
-		list->tail = new_node;
-		list->head->next = new_node;
-		list->head->prev = new_node;
-		list->tail->next = new_node;
-		list->tail->prev = new_node;
+		list->head = node;
+		list->tail = node;
+		list->head->next = node;
+		list->head->prev = node;
+		list->tail->next = node;
+		list->tail->prev = node;
 	}
 	else
 	{
-		new_node->next = list->head;
-		list->head->prev = new_node;
-		new_node->prev = list->tail;
-		list->tail->next = new_node;
-		list->head = new_node;
+		list->tail->next = node;
+		node->prev = list->tail;
+		list->head->prev = node;
+		node->next = list->head;
+		list->tail = node;
 	}
 	list->size++;
-}
-
-void		add_node_split(t_llist *list, char *str)
-{
-	char	**new_str;
-	int		i;
-
-	new_str = ft_split(str, ' ');
-	i = 0;
-	while ((new_str[i]))
-		add_node(list, atoi(new_str[i++]));
 }
 
 int			pop(t_llist *list)

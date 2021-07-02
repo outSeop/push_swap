@@ -41,34 +41,35 @@ void		move_lis(t_llist *a, t_llist *b, t_lis *lis, int min_value)
 	}
 }
 
+void		init_calis(t_calis *calis, int size)
+{
+	calis->dp = malloc(sizeof(int) * size);
+	calis->v = malloc(sizeof(int) * size);
+}
+
 int			*calc_lis(int *arr, int *size)
 {
-	int		*dp;
-	int		*res;
-	int		*v;
+	t_calis	calis;
 	int		cnt;
 	int		i;
 	int		pos;
 
-	dp = malloc(sizeof(int) * (*size + 1));
-	dp[0] = 0;
-	dp[1] = 0;
-	v = malloc(sizeof(int) * (*size + 1));
+	init_calis(&calis, *size);
 	cnt = 0;
-	v[0] = arr[1];
+	calis.v[0] = arr[1];
 	i = 2;
 	while (i <= *size)
 	{
-		if (v[cnt] < arr[i])
+		if (calis.v[cnt] < arr[i])
 		{
-			v[++cnt] = arr[i];
-			dp[i] = cnt;
+			calis.v[++cnt] = arr[i];
+			calis.dp[i] = cnt;
 		}
 		else
 		{
 			pos = lower_bound(arr, arr[i], cnt);
-			v[pos] = arr[i];
-			dp[i] = pos;
+			calis.v[pos] = arr[i];
+			calis.dp[i] = pos;
 		}
 		i++;
 	}

@@ -27,7 +27,7 @@ int				*sort(t_llist *list)
 	return (array);
 }
 
-int				*list_to_array(t_llist *list)
+int				*list_to_array_llist(t_llist *list)
 {
 	int			i;
 	int			*array;
@@ -42,5 +42,32 @@ int				*list_to_array(t_llist *list)
 		node = node->next;
 		i++;
 	}
+	array[i] = NULL;
+	return (array);
+}
+
+char			**list_to_array_arg(t_arg *arg)
+{
+	int			i;
+	t_arg		*head;
+	char		**array;
+
+	head = arg;
+	i = 0;
+	while (arg)
+	{
+		i++;
+		arg = arg->next;
+	}
+	array = malloc(sizeof(char*) * i);
+	arg = head;
+	i = 0;
+	while (arg)
+	{
+		array[i] = arg->str;
+		i++;
+		arg = arg->next;
+	}
+	array[i] = NULL;
 	return (array);
 }
