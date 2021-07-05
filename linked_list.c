@@ -81,12 +81,13 @@ int			pop(t_llist *list)
 		list->head->next->prev = list->tail;
 		list->tail->next = list->head->next;
 		list->head = list->head->next;
-
-
 		free(node);
 	}
 	else
+	{
+		list->head = NULL;
 		list->tail = NULL;
+	}
 	list->size--;
 	return (value);
 }

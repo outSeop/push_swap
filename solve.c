@@ -41,10 +41,9 @@ int				*find_pivots(int *array, int size)
 	int			*pivots;
 
 	pivots = malloc(sizeof(int) * 1);
-	pivots[0] = array[size / 3];
+	pivots[0] = array[size / 2];
 	return (pivots);
 }
-
 
 int			find_index(int num, int *dp, int size)
 {

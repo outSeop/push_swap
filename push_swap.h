@@ -139,6 +139,7 @@ void		revers_arr(int *arr, int size);
 */
 void			a_to_b(t_llist *a, t_llist *b, int size);
 void			b_to_a(t_llist *a, t_llist *b, int size);
+void			f_to_s(t_llist *f, t_llist *s, int size);
 /*
 ** arg.c
 */

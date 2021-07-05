@@ -33,7 +33,7 @@ int				*list_to_array(t_llist *list)
 	int			*array;
 	t_node		*node;
 
-	array = malloc(sizeof(int) * list->size);
+	array = malloc(sizeof(int) * (list->size + 1));
 	node = list->head;
 	i = 0;
 	while (i < list->size)

@@ -20,7 +20,8 @@ int				main(int argc, char *argv[])
 	// while (a->head->value != sort(a)[0])
 	// 	r(a);
 
-	a_to_b(a, b, a->size);
+	f_to_s(a, b, a->size);
+	f_to_s(b, a, b->size);
 	printf("== %d ==\n", a->count + b->count);
 }
 
