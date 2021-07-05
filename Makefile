@@ -12,6 +12,10 @@ SRCS =	push_swap.c \
 		check.c \
 		lis.c \
 		node.c \
+		arg.c \
+		select.c \
+		util.c \
+		test.c \
 
 GCC_FLAG = -g -fsanitize=address
 CC = gcc $(GCC_FLAG)

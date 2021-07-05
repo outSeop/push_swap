@@ -11,6 +11,18 @@
 # define INT_MIN -2147483648
 # define INT_MAX 2147483647
 
+typedef struct		s_arg
+{
+	struct s_arg	*next;
+	char			*str;
+}					t_arg;
+
+typedef struct		s_calis
+{
+	int				first;
+	int				second;
+}					t_calis;
+
 typedef struct		s_lis
 {
 	int				*array;
@@ -30,6 +42,8 @@ typedef struct		s_llist
 	int				size;
 	t_node			*head;
 	t_node			*tail;
+	int				count;
+	int				sorted;
 }					t_llist;
 
 /*
@@ -42,9 +56,10 @@ void				print_error(char *error);
 ** linked_list.c
 */
 void				add_node(t_llist *list, int value);
-t_llist				*make_list(int argc, char *argv[]);
+t_llist				*make_list(t_arg *arg);
 int					pop(t_llist *list);
 void				add_node_split(t_llist *list, char *str);
+void				append(t_llist *list, int value);
 
 /*
 ** base_operations.c
@@ -75,7 +90,8 @@ void				d_rrr(t_llist *first, t_llist *second);
 */
 int					check_arument(int argc, char *arcv[]);
 int					check_duplicate(t_llist *list);
-int					check_number(char *str);
+int					check_number(t_arg *arg);
+int					check_sign(char *str);
 
 /*
 ** sort.c
@@ -88,22 +104,47 @@ int					*list_to_array(t_llist *list);
 */
 void				solve(t_llist *a, t_llist *b);
 int					*find_pivots(int *array, int size);
+int				move_one_value(t_llist *a, t_llist *b, int pivot);
 
 /*
 ** lis.c
 */
-int					*lis(t_llist *a, t_llist *b);
+void				lis_give(t_llist *a, t_llist *b, int r);
 int					*calc_lis(int *arr, int *size);
 int					lower_bound(int *arr, int value, int size);
-void		move_lis(t_llist *a, t_llist *b, t_lis *lis, int min_value);
+void		move_lis_give(t_llist *a, t_llist *b, t_lis *lis, int *sorted_arr);
 int			find_value(int value, t_lis *lis);
+void				lis_hold(t_llist *a, t_llist *b, int r);
+void		move_lis_hold(t_llist *a, t_llist *b, t_lis *lis, int *sorted_arr);
+void		move_move(t_llist *a, t_llist *b);
+int			*calc_lis_r(int *arr, int *size);
+int				upper_bound(int *arr, int value, int size);
 
+/*
+** select.c
+*/
+void			select_move(t_llist *a, t_llist *b);
 /*
 ** node.c
 */
 int			*nodes_to_array(t_node *node, int size);
 
+/*
+** util.c
+*/
+void		revers_arr(int *arr, int size);
 
+/*
+** test.c
+*/
+void			a_to_b(t_llist *a, t_llist *b, int size);
+void			b_to_a(t_llist *a, t_llist *b, int size);
+/*
+** arg.c
+*/
+t_arg				*split_arg(int argc, char *argv[]);
+void		add_arg(t_arg **arg, char *str);
+void		add_arg_split(t_arg **arg, char *str);
 /*
 ** will be deleted
 */

@@ -24,9 +24,7 @@ int			check_duplicate(t_llist *list)
 		while (j < list->size - 1)
 		{
 			if (base->value == comp->value)
-			{
 				return (FALSE);
-			}
 			comp = comp->next;
 			j++;
 		}
@@ -36,10 +34,31 @@ int			check_duplicate(t_llist *list)
 	return (TRUE);
 }
 
-int			check_number(char *str)
+int			check_number(t_arg *arg)
 {
-	while (*str)
-		if ((!ft_isdigit(*str++)) && *str != ' ')
+	char	*str;
+	int		i;
+
+	while (arg)
+	{
+		str = arg->str;
+		if (check_sign(str) == FALSE)
 			return (FALSE);
+		i = 1;
+		while (str[i])
+		{
+			if (ft_isdigit(str[i]) == FALSE)
+				return (FALSE);
+			i++;
+		}
+		arg = arg->next;
+	}
+	return (TRUE);
+}
+
+int			check_sign(char *str)
+{
+	if (str[0] != '-' && str[0] != '+' && !ft_isdigit(str[0]))
+		return (FALSE);
 	return (TRUE);
 }

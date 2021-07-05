@@ -3,11 +3,9 @@
 void			solve(t_llist *a, t_llist *b)
 {
 	int			*pivots;
-	int			tmp;
-	int			i;
-	int			min_value;
 
-	lis(a, b);
+	pivots = find_pivots(sort(a), a->size);
+	move_value(a, b, pivots);
 }
 
 void			move_value(t_llist *a, t_llist *b, int *pivots)
@@ -17,13 +15,25 @@ void			move_value(t_llist *a, t_llist *b, int *pivots)
 	i = a->size;
 	while (i > 0)
 	{
-		if (pivots[0] <= a->tail->value)
+		if (pivots[0] >= a->head->value)
 			p(b, a);
 		else
-			rr(a);
+			r(a);
 		i--;
-		print_ab(a, b);
 	}
+}
+
+int				move_one_value(t_llist *a, t_llist *b, int pivot)
+{
+	int			i;
+
+	i = 0;
+	if (pivot <= a->head->value)
+	{
+		p(b, a);
+		return (1);
+	}
+	return (0);
 }
 
 int				*find_pivots(int *array, int size)
@@ -31,7 +41,7 @@ int				*find_pivots(int *array, int size)
 	int			*pivots;
 
 	pivots = malloc(sizeof(int) * 1);
-	pivots[0] = array[size / 2];
+	pivots[0] = array[size / 3];
 	return (pivots);
 }
 
@@ -50,3 +60,4 @@ int			find_index(int num, int *dp, int size)
 	}
 	return (i);
 }
+

@@ -4,12 +4,24 @@ int				main(int argc, char *argv[])
 {
 	t_llist		*a;
 	t_llist		*b;
+	t_arg		*arg;
 
 	b = init_list('b');
-	if ((a = make_list(argc, argv)) == NULL || !check_duplicate(a))
-		print_error("ERROR - There is wrong argument\n");
-	print_ab(a, b);
-	//solve(a, b);
+	if (argc < 2)
+		print_error("ERROR - Too few argument");
+	arg = split_arg(argc, argv);
+	if (check_number(arg) == FALSE)
+		print_error("ERROR - invalid argument");
+	a = make_list(arg);
+	if (check_duplicate(a) == FALSE)
+		print_error("ERROR - duplicate argument");
+	// while (b->head->value != sort(b)[0])
+	// 	r(b);
+	// while (a->head->value != sort(a)[0])
+	// 	r(a);
+
+	a_to_b(a, b, a->size);
+	printf("== %d ==\n", a->count + b->count);
 }
 
 t_llist				*init_list(char name)
@@ -20,6 +32,8 @@ t_llist				*init_list(char name)
 	list->head = NULL;
 	list->tail = NULL;
 	list->size = 0;
+	list->count = 0;
+	list->sorted = 0;
 	list->name = name;
 	return (list);
 }

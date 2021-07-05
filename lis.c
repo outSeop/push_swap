@@ -1,88 +1,152 @@
 #include "push_swap.h"
 
-int				*lis(t_llist *a, t_llist *b)
+void				lis_give(t_llist *a, t_llist *b, int r)
 {
-	t_lis		*lis;
-	int			min_value;
+	t_lis		*lis_v;
+	int			*sorted_arr;
 	t_node		*node;
 
 	node = a->head;
-	lis = malloc(sizeof(t_lis));
-	min_value = 0[sort(a)];
+	lis_v = malloc(sizeof(t_lis));
+	sorted_arr = sort(a);
 	while (1)
 	{
-		if (min_value == node->value)
+		if (sorted_arr[0] == node->value)
 			break ;
 		node = node->next;
 	}
-	lis->size = a->size;
-	lis->array = calc_lis(nodes_to_array(node, a->size), &lis->size);
-	move_lis(a, b, lis, min_value);
+	lis_v->size = a->size;
+	int *arr = nodes_to_array(node, a->size);
+	lis_v->array = calc_lis(arr, &lis_v->size);
+	printf("%d\n", lis_v->size);
+	a->sorted = lis_v->size;
+	move_lis_give(a, b, lis_v, sorted_arr);
 }
 
+void				lis_hold(t_llist *a, t_llist *b, int r)
+{
+	t_lis		*lis_v;
+	int			*sorted_arr;
+	t_node		*node;
 
-void		move_lis(t_llist *a, t_llist *b, t_lis *lis, int min_value)
+	node = a->head;
+	lis_v = malloc(sizeof(t_lis));
+	sorted_arr = sort(a);
+	while (1)
+	{
+		if (sorted_arr[0] == node->value)
+			break ;
+		node = node->next;
+	}
+	lis_v->size = a->size;
+	int *arr = nodes_to_array(node, a->size);
+	lis_v->array = calc_lis(arr, &lis_v->size);
+	printf("%d\n", lis_v->size);
+	a->sorted = lis_v->size;
+	move_lis_hold(a, b, lis_v, sorted_arr);
+}
+
+void		move_lis_hold(t_llist *a, t_llist *b, t_lis *lis, int *sorted_arr)
 {
 	int		i;
 	int		list_size;
-	int		temp = 0;
+	int		cnt_pb = 0;
+	int		*pivots;
 
+	pivots = find_pivots(sorted_arr, a->size);
 	i = 0;
 	list_size = a->size;
-	print_ab(a, b);
 	while (i < list_size)
 	{
-		if (find_value(a->tail->value, lis) == -1)
+		if (find_value(a->head->value, lis) == -1)
 			p(b, a);
 		else
-			rr(a);
-		print_ab(a, b);
+			r(a);
 		i++;
 	}
+}
+
+void		move_lis_give(t_llist *a, t_llist *b, t_lis *lis, int *sorted_arr)
+{
+	int		i;
+	int		list_size;
+	int		cnt_pb = 0;
+	int		*pivots;
+
+	pivots = find_pivots(sorted_arr, a->size);
+	i = 0;
+	list_size = a->size;
+	while (i < list_size)
+	{
+		if (find_value(a->head->value, lis) == -1)
+		{
+			if(!move_one_value(a, b, pivots[0] + -(i - list_size / 2)))
+				r(a);
+		}
+		else
+		{
+			p(b, a);
+			r(b);
+		}
+		i++;
+	}
+	// printf("==%d %d\n",i, list_size);
+	// printf("== %d\n", b->size);
+	// printf("%d\n", a->count + b->count);
+}
+
+void		move_move(t_llist *a, t_llist *b)
+{
+	if (a->head->value > b->head->value)
+		p(a, b);
+	else
+		r(a);
 }
 
 int			*calc_lis(int *arr, int *size)
 {
-	int		*dp;
+	t_calis	*calis;
 	int		*res;
-	int		*v;
-	int		cnt;
-	int		i;
+	int		p_lis;
+	int		p_arr;
+	int		*lis;
 	int		pos;
 
-	dp = malloc(sizeof(int) * (*size + 1));
-	dp[0] = 0;
-	dp[1] = 0;
-	v = malloc(sizeof(int) * (*size + 1));
-	cnt = 0;
-	v[0] = arr[1];
-	i = 2;
-	while (i <= *size)
+	p_lis = 0;
+	p_arr = 1;
+	lis = malloc(sizeof(int) * *size);
+	calis = malloc(sizeof(t_calis) * *size);
+	lis[p_lis] = arr[0];
+	calis[0].first = 0;
+	calis[0].second = arr[0];
+	while (p_arr < *size)
 	{
-		if (v[cnt] < arr[i])
+		if (lis[p_lis] < arr[p_arr])
 		{
-			v[++cnt] = arr[i];
-			dp[i] = cnt;
+			lis[++p_lis] = arr[p_arr];
+			calis[p_arr].first = p_lis;
+			calis[p_arr].second = arr[p_arr];
 		}
 		else
 		{
-			pos = lower_bound(arr, arr[i], cnt);
-			v[pos] = arr[i];
-			dp[i] = pos;
+			pos = lower_bound(lis, arr[p_arr], p_lis);
+			lis[pos - 1] = arr[p_arr];
+			calis[p_arr].first = pos - 1;
+			calis[p_arr].second = arr[p_arr];
 		}
-		i++;
+		p_arr++;
 	}
-	int LIS_size = cnt;
-	res = malloc(sizeof(int) * (LIS_size + 1));
-	for (int i = *size; i >= 0; i--)
+	int t = p_lis;
+	res = malloc(sizeof(int) * (t + 1));
+	for (int i = *size - 1; i >= 0; i--)
 	{
-		if (dp[i] == LIS_size)
+		if (calis[i].first == t)
 		{
-			res[LIS_size] = arr[i];
-			LIS_size--;
+			res[t] = calis[i].second;
+			t--;
 		}
 	}
-	*size = cnt + 1;
+	*size = p_lis + 1;
 	return (res);
 }
 
@@ -95,7 +159,7 @@ int				lower_bound(int *arr, int value, int size)
 	start = 0;
 	end = size;
 	mid = size;
-	while (end - start > 0)
+	while (start < end)
 	{
 		mid = (start + end) / 2;
 		if (arr[mid] < value)
@@ -103,8 +167,9 @@ int				lower_bound(int *arr, int value, int size)
 		else
 			end = mid;
 	}
-	return (end);
+	return (end + 1);
 }
+
 int			find_value(int value, t_lis *lis)
 {
 	int		i;
