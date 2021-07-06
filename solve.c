@@ -8,7 +8,15 @@ void			solve(t_llist *a, t_llist *b)
 	move_value(a, b, pivots);
 }
 
-void			move_value(t_llist *a, t_llist *b, int *pivots)
+void			solve_r(t_llist *a, t_llist *b)
+{
+	int			*pivots;
+
+	pivots = find_pivots(sort(a), a->size);
+	move_value_r(a, b, pivots);
+}
+
+void			move_value_r(t_llist *a, t_llist *b, int *pivots)
 {
 	int			i;
 
@@ -16,6 +24,20 @@ void			move_value(t_llist *a, t_llist *b, int *pivots)
 	while (i > 0)
 	{
 		if (pivots[0] >= a->head->value)
+			p(b, a);
+		else
+			r(a);
+		i--;
+	}
+}
+void			move_value(t_llist *a, t_llist *b, int *pivots)
+{
+	int			i;
+
+	i = a->size;
+	while (i > 0)
+	{
+		if (pivots[0] <= a->head->value)
 			p(b, a);
 		else
 			r(a);
@@ -40,6 +62,8 @@ int				*find_pivots(int *array, int size)
 {
 	int			*pivots;
 
+	if (array == NULL)
+		return NULL;
 	pivots = malloc(sizeof(int) * 1);
 	pivots[0] = array[size / 2];
 	return (pivots);

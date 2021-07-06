@@ -44,6 +44,8 @@ typedef struct		s_llist
 	t_node			*tail;
 	int				count;
 	int				sorted;
+	int				cnt_r;
+	int				cnt_p;
 }					t_llist;
 
 /*
@@ -51,6 +53,7 @@ typedef struct		s_llist
 */
 t_llist				*init_list(char name);
 void				print_error(char *error);
+void				init_cnt(t_llist *list);
 
 /*
 ** linked_list.c
@@ -104,6 +107,9 @@ int					*list_to_array(t_llist *list);
 */
 void				solve(t_llist *a, t_llist *b);
 int					*find_pivots(int *array, int size);
+void				solve_r(t_llist *a, t_llist *b);
+void				move_value(t_llist *a, t_llist *b, int *pivots);
+void				move_value_r(t_llist *a, t_llist *b, int *pivots);
 int				move_one_value(t_llist *a, t_llist *b, int pivot);
 
 /*
@@ -124,6 +130,7 @@ int				upper_bound(int *arr, int value, int size);
 ** select.c
 */
 void			select_move(t_llist *a, t_llist *b);
+void			find_naer(t_llist *list, int value);
 /*
 ** node.c
 */
@@ -140,6 +147,7 @@ void		revers_arr(int *arr, int size);
 void			a_to_b(t_llist *a, t_llist *b, int size);
 void			b_to_a(t_llist *a, t_llist *b, int size);
 void			f_to_s(t_llist *f, t_llist *s, int size);
+void			a_to_b_r(t_llist *a, t_llist *b, int size);
 /*
 ** arg.c
 */

@@ -6,6 +6,8 @@ void				lis_give(t_llist *a, t_llist *b, int r)
 	int			*sorted_arr;
 	t_node		*node;
 
+	init_cnt(a);
+	init_cnt(b);
 	node = a->head;
 	lis_v = malloc(sizeof(t_lis));
 	sorted_arr = sort(a);
@@ -18,7 +20,6 @@ void				lis_give(t_llist *a, t_llist *b, int r)
 	lis_v->size = a->size;
 	int *arr = nodes_to_array(node, a->size);
 	lis_v->array = calc_lis(arr, &lis_v->size);
-	printf("%d\n", lis_v->size);
 	a->sorted = lis_v->size;
 	move_lis_give(a, b, lis_v, sorted_arr);
 }
@@ -29,6 +30,8 @@ void				lis_hold(t_llist *a, t_llist *b, int r)
 	int			*sorted_arr;
 	t_node		*node;
 
+	init_cnt(a);
+	init_cnt(b);
 	node = a->head;
 	lis_v = malloc(sizeof(t_lis));
 	sorted_arr = sort(a);
@@ -59,7 +62,9 @@ void		move_lis_hold(t_llist *a, t_llist *b, t_lis *lis, int *sorted_arr)
 	while (i < list_size)
 	{
 		if (find_value(a->head->value, lis) == -1)
+		{
 			p(b, a);
+		}
 		else
 			r(a);
 		i++;
@@ -71,16 +76,13 @@ void		move_lis_give(t_llist *a, t_llist *b, t_lis *lis, int *sorted_arr)
 	int		i;
 	int		list_size;
 	int		cnt_pb = 0;
-	int		*pivots;
 
-	pivots = find_pivots(sorted_arr, a->size);
 	i = 0;
 	list_size = a->size;
 	while (i < list_size)
 	{
 		if (find_value(a->head->value, lis) == -1)
 		{
-			if(!move_one_value(a, b, pivots[0] + -(i - list_size / 2)))
 				r(a);
 		}
 		else
@@ -90,9 +92,6 @@ void		move_lis_give(t_llist *a, t_llist *b, t_lis *lis, int *sorted_arr)
 		}
 		i++;
 	}
-	// printf("==%d %d\n",i, list_size);
-	// printf("== %d\n", b->size);
-	// printf("%d\n", a->count + b->count);
 }
 
 void		move_move(t_llist *a, t_llist *b)

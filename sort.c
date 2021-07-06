@@ -8,6 +8,8 @@ int				*sort(t_llist *list)
 	int			tmp;
 
 	array = list_to_array(list);
+	if (array == NULL)
+		return (NULL);
 	i = 0;
 	while (i < list->size)
 	{
@@ -33,6 +35,8 @@ int				*list_to_array(t_llist *list)
 	int			*array;
 	t_node		*node;
 
+	if (list->size == 0)
+		return (NULL);
 	array = malloc(sizeof(int) * (list->size + 1));
 	node = list->head;
 	i = 0;

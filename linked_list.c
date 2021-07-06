@@ -122,6 +122,7 @@ void				print_node(t_node *node, int size)
 {
 	int				i;
 
+	printf("==== print node ====\n");
 	i = 0;
 	while (i < size)
 	{
@@ -129,4 +130,5 @@ void				print_node(t_node *node, int size)
 		node = node->next;
 		i++;
 	}
+	printf("\n====================\n");
 }

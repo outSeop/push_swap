@@ -1,3 +1,1 @@
-#gcc *.c Libft/*.c
-gcc -g -fsanitize=address  *.c Libft/*.c
-./a.out 5 10 4 3 20 2 1 0
+./tt.sh `ruby -e "puts (0..100).to_a.shuffle.join(' ')"`

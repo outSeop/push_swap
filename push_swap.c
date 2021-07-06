@@ -20,9 +20,16 @@ int				main(int argc, char *argv[])
 	// while (a->head->value != sort(a)[0])
 	// 	r(a);
 
-	f_to_s(a, b, a->size);
-	f_to_s(b, a, b->size);
-	printf("== %d ==\n", a->count + b->count);
+	while (a->head)
+		solve_r(a, b);
+	while (b->head)
+		solve(b, a);
+	lis_hold(a, b, 0);
+	rr(b);
+	p(a, b);
+	while (b->head)
+		select_move(a, b);
+	printf("ans: %d\n", a->count + b->count);
 }
 
 t_llist				*init_list(char name)
@@ -35,8 +42,15 @@ t_llist				*init_list(char name)
 	list->size = 0;
 	list->count = 0;
 	list->sorted = 0;
+	init_cnt(list);
 	list->name = name;
 	return (list);
+}
+
+void				init_cnt(t_llist *list)
+{
+	list->cnt_p = 0;
+	list->cnt_r = 0;
 }
 
 void				print_error(char *error)
