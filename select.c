@@ -2,15 +2,17 @@
 
 void			select_move(t_llist *a, t_llist *b)
 {
-	if (b->head && b->head->value > b->head->next->value)
+	if (b->head->value < b->head->next->value)
 		s(b);
-	if (a->head->value < b->head->value &&  b->head->value < a->head->next->value)
-	{
-		r(a);
+	if (a->head->value == sort(a)[0])
 		p(a, b);
-	}
-	else
+	if (a->head->value < b->head->value)
 		r(a);
+	else if (a->head->value > b->head->value && a->tail->value > b->head->value)
+		rr(a);
+	else
+		p(a, b);
+
 }
 
 void			find_naer(t_llist *list, int value)

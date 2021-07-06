@@ -24,11 +24,12 @@ int				main(int argc, char *argv[])
 		solve_r(a, b);
 	while (b->head)
 		solve(b, a);
-	lis_hold(a, b, 0);
-	rr(b);
-	p(a, b);
-	while (b->head)
-		select_move(a, b);
+
+	// lis_hold(a, b, 0);
+	// rr(b);
+	// p(a, b);
+	// while (b->head)
+	// 	select_move(a, b);
 	printf("ans: %d\n", a->count + b->count);
 }
 
