@@ -15,7 +15,7 @@ void			select_move(t_llist *a, t_llist *b)
 
 }
 
-void			find_naer(t_llist *list, int value)
+int				find_naer(t_llist *list, int value)
 {
 	int			search_r;
 	int			search_rr;
@@ -26,11 +26,13 @@ void			find_naer(t_llist *list, int value)
 	i = 0;
 	search_r = 0;
 	search_rr = 0;
-	while (node->value != value)
+	while (node->value != value && search_r != list->size)
 	{
 		search_r++;
 		node = node->next;
 	}
+	if (search_r == list->size)
+		return (FALSE);
 	while (node->value != value)
 	{
 		search_rr++;
@@ -46,5 +48,6 @@ void			find_naer(t_llist *list, int value)
 		while (--search_rr)
 			rr(list);
 	}
+	return (TRUE);
 }
 

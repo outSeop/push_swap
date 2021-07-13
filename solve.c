@@ -1,18 +1,18 @@
 #include "push_swap.h"
 
-void			solve(t_llist *a, t_llist *b)
+void			solve(t_llist *a, t_llist *b, int size)
 {
 	int			*pivots;
 
-	pivots = find_pivots(sort(a), a->size);
+	pivots = find_pivots(sort(a), size);
 	move_value(a, b, pivots);
 }
 
-void			solve_r(t_llist *a, t_llist *b)
+void			solve_r(t_llist *a, t_llist *b, int size)
 {
 	int			*pivots;
 
-	pivots = find_pivots(sort(a), a->size);
+	pivots = find_pivots(sort(a), size);
 	move_value_r(a, b, pivots);
 }
 
@@ -23,7 +23,7 @@ void			move_value_r(t_llist *a, t_llist *b, int *pivots)
 	i = a->size;
 	while (i > 0)
 	{
-		if (pivots[0] >= a->head->value)
+		if (find_naer(a, pivots[0]))
 			p(b, a);
 		else
 			r(a);

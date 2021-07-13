@@ -21,10 +21,10 @@ int				main(int argc, char *argv[])
 	// 	r(a);
 
 	while (a->head)
-		solve_r(a, b);
+		solve_r(a, b, a->size);
 	while (b->head)
-		solve(b, a);
-
+		solve(b, a, b->size);
+	lis_hold(a, b, 0);
 	// lis_hold(a, b, 0);
 	// rr(b);
 	// p(a, b);

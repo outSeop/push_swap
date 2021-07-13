@@ -105,9 +105,9 @@ int					*list_to_array(t_llist *list);
 /*
 ** solve.c
 */
-void				solve(t_llist *a, t_llist *b);
+void				solve(t_llist *a, t_llist *b, int size);
 int					*find_pivots(int *array, int size);
-void				solve_r(t_llist *a, t_llist *b);
+void				solve_r(t_llist *a, t_llist *b, int size);
 void				move_value(t_llist *a, t_llist *b, int *pivots);
 void				move_value_r(t_llist *a, t_llist *b, int *pivots);
 int				move_one_value(t_llist *a, t_llist *b, int pivot);
@@ -130,7 +130,7 @@ int				upper_bound(int *arr, int value, int size);
 ** select.c
 */
 void			select_move(t_llist *a, t_llist *b);
-void			find_naer(t_llist *list, int value);
+int				find_naer(t_llist *list, int value);
 /*
 ** node.c
 */
