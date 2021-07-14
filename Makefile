@@ -1,7 +1,6 @@
 .PHONY: libft all clean fclean re
 
 NAME_PS = push_swap
-NAME_CK = checker
 
 SRCS =	push_swap.c \
 		linked_list.c \
@@ -22,9 +21,8 @@ CC = gcc $(GCC_FLAG)
 
 OBJS = $(SRCS:.c=.o)
 OBJS_PS = $(SRCS_PS:.c=.o)
-OBJS_CK = $(SRCS_CK:.c=.o)
 
-all: $(NAME_PS) $(NAME_CK)
+all: $(NAME_PS)
 
 libft:
 	make bonus -C Libft/
@@ -35,8 +33,6 @@ $(%.o): $(%.c)
 $(NAME_PS): libft $(OBJS) $(OBJS_PS)
 	$(CC) -o $@ $(OBJS) $(OBJS_PS) -Llibft -lft -I./
 
-$(NAME_CK): libft $(OBJS) $(OBJS_CK)
-	$(CC) -o $@ $(OBJS) $(OBJS_CK) -Llibft -lft -I./
 
 clean:
 	rm -f *.o
@@ -44,6 +40,6 @@ clean:
 
 fclean: clean
 	rm -f $(NAME_PS) $(NAME_CK)
-	make -C libft/ fclean
+	make -C Libft/ fclean
 
 re: fclean all

@@ -28,6 +28,7 @@ void			move_value_r(t_llist *a, t_llist *b, int *pivots)
 		else
 			r(a);
 		i--;
+		print_ab(a, b);
 	}
 }
 void			move_value(t_llist *a, t_llist *b, int *pivots)

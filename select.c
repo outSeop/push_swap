@@ -26,6 +26,8 @@ int				find_naer(t_llist *list, int value)
 	i = 0;
 	search_r = 0;
 	search_rr = 0;
+	if (node->value == value)
+		return (TRUE);
 	while (node->value != value && search_r != list->size)
 	{
 		search_r++;
@@ -33,6 +35,7 @@ int				find_naer(t_llist *list, int value)
 	}
 	if (search_r == list->size)
 		return (FALSE);
+	node = list->head;
 	while (node->value != value)
 	{
 		search_rr++;
