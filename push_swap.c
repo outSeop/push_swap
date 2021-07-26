@@ -22,6 +22,9 @@ int				main(int argc, char *argv[])
 
 	while (a->head)
 		solve_r(a, b, a->size);
+	int tmp = b->size / 2;
+	while (tmp--)
+		p(a, b);
 	while (b->head)
 		solve(b, a, b->size);
 	lis_hold(a, b, 0);

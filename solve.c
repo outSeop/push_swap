@@ -23,12 +23,12 @@ void			move_value_r(t_llist *a, t_llist *b, int *pivots)
 	i = a->size;
 	while (i > 0)
 	{
-		if (find_naer(a, pivots[0]))
+
+		if (pivots[0] >= a->head->value)
 			p(b, a);
 		else
 			r(a);
 		i--;
-		print_ab(a, b);
 	}
 }
 void			move_value(t_llist *a, t_llist *b, int *pivots)
