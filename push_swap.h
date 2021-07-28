@@ -11,6 +11,34 @@
 # define INT_MIN -2147483648
 # define INT_MAX 2147483647
 
+# define RFRS 0
+# define RFRRS 1
+# define RRFRS 2
+# define RRFRRS 3
+# define RF_ 4
+# define _RS 5
+# define RRF_ 6
+# define _RRS 7
+
+typedef struct		s_cset
+{
+	int				command;
+	struct s_cset	*next;
+}					t_cset;
+
+typedef struct 		s_chead
+{
+	int				size;
+	t_cset			*head;
+}					t_chead;
+
+
+typedef struct		s_bf
+{
+	int				kind;
+	int				count;
+}					t_bf;
+
 typedef struct		s_arg
 {
 	struct s_arg	*next;
@@ -154,6 +182,26 @@ void			a_to_b_r(t_llist *a, t_llist *b, int size);
 t_arg				*split_arg(int argc, char *argv[]);
 void		add_arg(t_arg **arg, char *str);
 void		add_arg_split(t_arg **arg, char *str);
+
+
+/*
+** bruteforce.c
+*/
+void		bruteforce(t_llist *first, t_llist *second, int *sorted_arr);
+t_bf		rfrs(t_llist *first, t_llist *second);
+t_bf		rfrrs(t_llist *first, t_llist *second);
+t_bf		rrfrs(t_llist *first, t_llist *second);
+t_bf		rrfrrs(t_llist *first, t_llist *second);
+t_bf			rf_(t_llist *first, t_llist *second);
+t_bf			_rs(t_llist *first, t_llist *second);
+t_bf			rrf_(t_llist *first, t_llist *second);
+t_bf			_rrs(t_llist *first, t_llist *second);
+
+/*
+** calc_bf.c
+*/
+void		move_bf(t_llist *first, t_llist *second, t_bf bf[]);
+int			bf_min(t_bf bf[]);
 /*
 ** will be deleted
 */

@@ -28,6 +28,12 @@ int				main(int argc, char *argv[])
 	while (b->head)
 		solve(b, a, b->size);
 	lis_hold(a, b, 0);
+	int i = 0;
+	while (b->size)
+	{
+		bruteforce(a, b, sort(a));
+		i++;
+	}
 	// lis_hold(a, b, 0);
 	// rr(b);
 	// p(a, b);

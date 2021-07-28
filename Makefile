@@ -6,6 +6,7 @@ SRCS =	push_swap.c \
 		linked_list.c \
 		base_operations.c \
 		operations.c \
+		operations_double.c \
 		solve.c \
 		sort.c \
 		check.c \
@@ -15,6 +16,8 @@ SRCS =	push_swap.c \
 		select.c \
 		util.c \
 		test.c \
+		bruteforce.c \
+		calc_bf.c 
 
 GCC_FLAG = -g -fsanitize=address
 CC = gcc $(GCC_FLAG)
