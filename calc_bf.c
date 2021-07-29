@@ -32,6 +32,7 @@ void		move_bf(t_llist *first, t_llist *second, t_bf bf[])
 	int		i;
 
 	min = bf_min(bf);
+	printf("======== %d\n", bf[min].count);
 	i = 0;
 	if (min == RFRS)
 	{
@@ -100,22 +101,6 @@ void		move_bf(t_llist *first, t_llist *second, t_bf bf[])
 			i++;
 		}
 	}
-}
-
-void			calc_bf(t_llist *f, t_llist *s)
-{
-	t_chead		*chead;
-	t_node		*f_node;
-	t_node		*s_node;
-
-	f_node = f->head;
-	s_node = s->head;
-	for (int i = 0; i < 8; i++)
-	{
-
-	}
-
-
 }
 
 t_cset			*bfs(t_node *f_node, t_node *s_node, t_cset *pre_cset)
