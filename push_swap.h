@@ -11,14 +11,15 @@
 # define INT_MIN -2147483648
 # define INT_MAX 2147483647
 
-# define RFRS 0
-# define RFRRS 1
-# define RRFRS 2
-# define RRFRRS 3
-# define RF_ 4
-# define _RS 5
-# define RRF_ 6
-# define _RRS 7
+# define I_ 0
+# define R_ 1
+# define RR_ 2
+typedef struct		s_node
+{
+	int				value;
+	struct s_node	*next;
+	struct s_node	*prev;
+}					t_node;
 
 typedef struct		s_cset
 {
@@ -26,18 +27,13 @@ typedef struct		s_cset
 	struct s_cset	*next;
 }					t_cset;
 
-typedef struct 		s_chead
+typedef struct		s_bflist
 {
-	int				size;
-	t_cset			*head;
-}					t_chead;
+	t_node			*node;
+	t_cset			*cset;
+	struct s_bflist	*next;
 
-
-typedef struct		s_bf
-{
-	int				kind;
-	int				count;
-}					t_bf;
+}					t_bflist;
 
 typedef struct		s_arg
 {
@@ -57,12 +53,6 @@ typedef struct		s_lis
 	int				size;
 }					t_lis;
 
-typedef struct		s_node
-{
-	int				value;
-	struct s_node	*next;
-	struct s_node	*prev;
-}					t_node;
 
 typedef struct		s_llist
 {
@@ -187,16 +177,8 @@ void		add_arg_split(t_arg **arg, char *str);
 /*
 ** bruteforce.c
 */
-void		bruteforce(t_llist *first, t_llist *second, int *sorted_arr);
-t_bf		rfrs(t_llist *first, t_llist *second);
-t_bf		rfrrs(t_llist *first, t_llist *second);
-t_bf		rrfrs(t_llist *first, t_llist *second);
-t_bf		rrfrrs(t_llist *first, t_llist *second);
-t_bf			rf_(t_llist *first, t_llist *second);
-t_bf			_rs(t_llist *first, t_llist *second);
-t_bf			rrf_(t_llist *first, t_llist *second);
-t_bf			_rrs(t_llist *first, t_llist *second);
-
+void		bruteforce(t_llist *first, t_llist *second);
+t_cset			**bfs(t_bflist *f_bflist, t_bflist *s_bflist);
 /*
 ** calc_bf.c
 */

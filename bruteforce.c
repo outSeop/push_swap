@@ -1,203 +1,121 @@
 #include "push_swap.h"
 
-void		bruteforce(t_llist *first, t_llist *second, int *sorted_arr)
+void			bruteforce(t_llist *first, t_llist *second)
 {
-	t_bf	bf[8];
-	int		max;
+	t_cset		*cset;
+	t_bflist	*f_bflist;
+	t_bflist	*s_bflist;
 
-	max = sorted_arr[first->size - 1];
-	if (first->tail->value < second->head->value
-		&& second->head->value < first->head->value)
+	f_bflist = init_bflist(first->head);
+	s_bflist = init_bflist(second->head);
+	bfs(f_bflist, s_bflist);
+
+
+}
+
+t_bflist		*init_bflist(t_node *node)
+{
+	t_bflist	*new_bflist;
+
+	new_bflist = malloc(sizeof(t_bflist));
+	new_bflist->node = node;
+	new_bflist->next = NULL;
+	new_bflist->cset = NULL;
+	return (new_bflist);
+}
+
+t_cset			**bfs(t_bflist *f_bflist, t_bflist *s_bflist)
+{
+	int			i;
+	int			j;
+	void		(*fp[3])(t_bflist *);
+	t_cset		*cset[2];
+
+	while (1)
 	{
-		p(first, second);
-	}
-	else if (max < second->head->value)
-	{
-		p(first, second);
-	}
-	else
-	{
-		bf[RFRS] = rfrs(first, second);
-		bf[RFRRS] = rfrrs(first, second);
-		bf[RRFRS] = rrfrs(first, second);
-		bf[RRFRRS] = rrfrrs(first, second);
-		bf[RF_] = rf_(first, second);
-		bf[_RS] = _rs(first, second);
-		bf[RRF_] = rrf_(first, second);
-		bf[_RRS] = _rrs(first, second);
-		move_bf(first, second, bf);
-	}
-
-}
-
-t_bf		rfrs(t_llist *first, t_llist *second)
-{
-	t_bf	res;
-	t_node	*f_node;
-	t_node	*s_node;
-
-	res.count = 0;
-	res.kind = RFRS;
-	f_node = first->head;
-	s_node = second->head;
-	while (!(f_node->prev->value < s_node->value
-			&& s_node->value < f_node->value))
+		if (check_bf(f_bflist, s_bflist))
 		{
-			f_node = f_node->next;
-			s_node = s_node->next;
-			res.count++;
+			cset[0] = f_bflist->cset;
+			cset[1] = s_bflist->cset;
+			return (cset);
 		}
-	return (res);
-}
-
-t_bf		rfrrs(t_llist *first, t_llist *second)
-{
-	t_bf	res;
-	t_node	*f_node;
-	t_node	*s_node;
-
-	res.count = 0;
-	res.kind = RFRRS;
-	f_node = first->head;
-	s_node = second->head;
-	while (!(f_node->prev->value < s_node->value
-			&& s_node->value < f_node->value))
+		i = 0;
+		while (i < 3)
 		{
-			f_node = f_node->next;
-			s_node = s_node->prev;
-			res.count++;
-		}
-	return (res);
-
-}
-
-t_bf			rrfrs(t_llist *first, t_llist *second)
-{
-
-	t_bf	res;
-	t_node	*f_node;
-	t_node	*s_node;
-
-	res.count = 0;
-	res.kind = RRFRS;
-	f_node = first->head;
-	s_node = second->head;
-	while (!(f_node->prev->value < s_node->value
-			&& s_node->value < f_node->value))
-		{
-			f_node = f_node->prev;
-			s_node = s_node->next;
-			res.count++;
-		}
-	return (res);
-}
-
-t_bf			rrfrrs(t_llist *first, t_llist *second)
-{
-	t_bf	res;
-	t_node	*f_node;
-	t_node	*s_node;
-
-	res.count = 0;
-	res.kind = RRFRRS;
-	f_node = first->head;
-	s_node = second->head;
-	while (!(f_node->prev->value < s_node->value
-			&& s_node->value < f_node->value))
-		{
-			f_node = f_node->prev;
-			s_node = s_node->prev;
-			res.count++;
-		}
-	return (res);
-}
-
-t_bf			rf_(t_llist *first, t_llist *second)
-{
-	t_bf	res;
-	t_node	*f_node;
-	t_node	*s_node;
-
-	res.count = 0;
-	res.kind = RF_;
-	f_node = first->head;
-	s_node = second->head;
-	while (!(f_node->prev->value < s_node->value
-			&& s_node->value < f_node->value))
-		{
-			f_node = f_node->next;
-			res.count++;
-		}
-	return (res);
-
-}
-
-t_bf			_rs(t_llist *first, t_llist *second)
-{
-	t_bf	res;
-	t_node	*f_node;
-	t_node	*s_node;
-
-	res.count = 0;
-	res.kind = _RS;
-	f_node = first->head;
-	s_node = second->head;
-	while (!(f_node->prev->value < s_node->value
-			&& s_node->value < f_node->value))
-		{
-			s_node = s_node->next;
-			res.count++;
-			if (res.count > second->size)
+			while (j < 3)
 			{
-				res.count = -1;
-				return (res);
+				fp[i](f_bflist);
+				fp[j](s_bflist);
+				j++;
 			}
+			i++;
 		}
-	return (res);
-
+	}
 }
 
-t_bf			rrf_(t_llist *first, t_llist *second)
+int			check_bf(t_bflist *f_bflist, t_bflist *s_bflist)
 {
-	t_bf	res;
-	t_node	*f_node;
-	t_node	*s_node;
-
-	res.count = 0;
-	res.kind = RRF_;
-	f_node = first->head;
-	s_node = second->head;
-	while (!(f_node->prev->value < s_node->value
-			&& s_node->value < f_node->value))
-		{
-			f_node = f_node->prev;
-			res.count++;
-		}
-	return (res);
-
+	if (f_bflist->node->prev < s_bflist->node &&
+		s_bflist->node < f_bflist->node)
+		return (1);
+	return (0);
 }
 
-t_bf			_rrs(t_llist *first, t_llist *second)
+void		i_(t_bflist *bflist)
 {
-	t_bf	res;
-	t_node	*f_node;
-	t_node	*s_node;
+	t_bflist	*new_bflist;
 
-	res.count = 0;
-	res.kind = _RRS;
-	f_node = first->head;
-	s_node = second->head;
-	while (!(f_node->prev->value < s_node->value
-			&& s_node->value < f_node->value))
-		{
-			s_node = s_node->prev;
-			res.count++;
-			if (res.count > second->size)
-			{
-				res.count = -1;
-				return (res);
-			}
-		}
-	return (res);
+	new_bflist = malloc(sizeof(t_bflist));
+	new_bflist->next = NULL;
+	new_bflist->node = new_bflist->node;
+	while (bflist->next)
+		bflist = bflist->next;
+	bflist->next = new_bflist;
+	add_cset(&(bflist->cset), I_);
+}
 
+void		r_(t_bflist *bflist)
+{
+	t_bflist	*new_bflist;
+
+	new_bflist = malloc(sizeof(t_bflist));
+	new_bflist->next = NULL;
+	new_bflist->node = new_bflist->node->next;
+	while (bflist->next)
+		bflist = bflist->next;
+	bflist->next = new_bflist;
+	add_cset(&(bflist->cset), R_);
+}
+
+void		rr_(t_bflist *bflist)
+{
+	t_bflist	*new_bflist;
+
+	new_bflist = malloc(sizeof(t_bflist));
+	new_bflist->next = NULL;
+	new_bflist->node = new_bflist->node->prev;
+	while (bflist->next)
+		bflist = bflist->next;
+	bflist->next = new_bflist;
+	add_cset(&(bflist->cset), RR_);
+}
+
+void		add_cset(t_cset **cset, int command)
+{
+	t_cset	*new_cset;
+	t_cset	*start;
+
+	new_cset = malloc(sizeof(t_cset));
+	new_cset->command = command;
+	new_cset->next = NULL;
+	if ((*cset) == NULL)
+	{
+		(*cset) = new_cset;
+		return ;
+	}
+	start = (*cset);
+	while ((*cset)->next)
+		(*cset) = (*cset)->next;
+	(*cset)->next = new_cset;
+	(*cset) = start;
 }
