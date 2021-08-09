@@ -16,8 +16,7 @@ SRCS =	push_swap.c \
 		select.c \
 		util.c \
 		test.c \
-		bruteforce.c \
-		calc_bf.c 
+		bruteforce.c 
 
 GCC_FLAG = -g -fsanitize=address
 CC = gcc $(GCC_FLAG)

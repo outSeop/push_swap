@@ -14,6 +14,8 @@
 # define I_ 0
 # define R_ 1
 # define RR_ 2
+
+
 typedef struct		s_node
 {
 	int				value;
@@ -21,16 +23,9 @@ typedef struct		s_node
 	struct s_node	*prev;
 }					t_node;
 
-typedef struct		s_cset
-{
-	int				command;
-	struct s_cset	*next;
-}					t_cset;
-
 typedef struct		s_bflist
 {
 	t_node			*node;
-	t_cset			*cset;
 	struct s_bflist	*next;
 
 }					t_bflist;
@@ -65,6 +60,11 @@ typedef struct		s_llist
 	int				cnt_r;
 	int				cnt_p;
 }					t_llist;
+
+typedef struct		s_func
+{
+	void			(*func[3])(t_bflist *);
+}					t_func;
 
 /*
 ** push_swap.c
@@ -177,13 +177,18 @@ void		add_arg_split(t_arg **arg, char *str);
 /*
 ** bruteforce.c
 */
+int			get_max(t_node *node);
 void		bruteforce(t_llist *first, t_llist *second);
 t_cset			**bfs(t_bflist *f_bflist, t_bflist *s_bflist);
+t_bflist		*init_bflist(t_node *node);
+void		add_cset(t_cset *cset, int command);
+int			check_bf(t_bflist *f_bflist, t_bflist *s_bflist);
+t_func		make_func();
+void			move_bf(t_cset **cset, t_llist *first, t_llist *second);
+t_cset		*duplicate_cset(t_cset *cset);
 /*
 ** calc_bf.c
 */
-void		move_bf(t_llist *first, t_llist *second, t_bf bf[]);
-int			bf_min(t_bf bf[]);
 /*
 ** will be deleted
 */
