@@ -11,15 +11,21 @@
 # define INT_MIN -2147483648
 # define INT_MAX 2147483647
 
-# define RFRS 0
-# define RFRRS 1
-# define RRFRS 2
-# define RRFRRS 3
-# define RF_ 4
-# define _RS 5
-# define RRF_ 6
-# define _RRS 7
+# define RFRS 4
+# define RFRRS 5
+# define RRFRS 6
+# define RRFRRS 7
+# define RF_ 0
+# define _RS 1
+# define RRF_ 2
+# define _RRS 3
 
+typedef struct		s_func_bf
+{
+	int				min;
+	void			(*func[8])(t_node **, t_node **);
+	int				incre[8];
+}					t_func_bf;
 typedef struct		s_cset
 {
 	int				command;
@@ -188,6 +194,7 @@ void		add_arg_split(t_arg **arg, char *str);
 ** bruteforce.c
 */
 void		bruteforce(t_llist *first, t_llist *second, int *sorted_arr);
+int			comp_max(int f, int s);
 t_bf		rfrs(t_llist *first, t_llist *second);
 t_bf		rfrrs(t_llist *first, t_llist *second);
 t_bf		rrfrs(t_llist *first, t_llist *second);
@@ -196,12 +203,16 @@ t_bf			rf_(t_llist *first, t_llist *second);
 t_bf			_rs(t_llist *first, t_llist *second);
 t_bf			rrf_(t_llist *first, t_llist *second);
 t_bf			_rrs(t_llist *first, t_llist *second);
+int			check_sorted(t_llist *list);
 
 /*
 ** calc_bf.c
 */
 void		move_bf(t_llist *first, t_llist *second, t_bf bf[]);
 int			bf_min(t_bf bf[]);
+int			get_max(t_node *node);
+int			get_min(t_node *node);
+t_bf		get_biggest_case(t_llist *first, t_llist *second);
 /*
 ** will be deleted
 */

@@ -44,7 +44,6 @@ void				lis_hold(t_llist *a, t_llist *b, int r)
 	lis_v->size = a->size;
 	int *arr = nodes_to_array(node, a->size);
 	lis_v->array = calc_lis(arr, &lis_v->size);
-	printf("%d\n", lis_v->size);
 	a->sorted = lis_v->size;
 	move_lis_hold(a, b, lis_v, sorted_arr);
 }
