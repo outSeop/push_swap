@@ -21,13 +21,14 @@ int				main(int argc, char *argv[])
 	// 	r(a);
 
 	while (a->head)
-		solve(a, b, a->size);
-	// int tmp = b->size / 2;
-	// while (tmp--)
-	// 	p(a, b);
-	// while (b->head)
-	// 	solve(b, a, b->size);
-	lis_give(b, a, 0);
+		solve_r(a, b, a->size);
+	int tmp = b->size / 2;
+	while (tmp--)
+		p(a, b);
+	while (b->head)
+		solve(b, a, b->size);
+	lis_hold(a, b, 0);
+	// lis_give(b, a, 0);
 	int i = 0;
 	while (b->size)
 	{

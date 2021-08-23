@@ -20,12 +20,6 @@
 # define RRF_ 2
 # define _RRS 3
 
-typedef struct		s_func_bf
-{
-	int				min;
-	void			(*func[8])(t_node **, t_node **);
-	int				incre[8];
-}					t_func_bf;
 typedef struct		s_cset
 {
 	int				command;
@@ -81,6 +75,13 @@ typedef struct		s_llist
 	int				cnt_r;
 	int				cnt_p;
 }					t_llist;
+
+typedef struct		s_func_bf
+{
+	int				min;
+	void			(*func[8])(t_node **, t_node **);
+	int				incre[8];
+}					t_func_bf;
 
 /*
 ** push_swap.c
@@ -159,6 +160,8 @@ void		move_lis_hold(t_llist *a, t_llist *b, t_lis *lis, int *sorted_arr);
 void		move_move(t_llist *a, t_llist *b);
 int			*calc_lis_r(int *arr, int *size);
 int				upper_bound(int *arr, int value, int size);
+int				is_infinity(int f_size, int s_size, int kinds, int cnt);
+void		sort_r(t_llist *f_list, t_llist *s_list, int max);
 
 /*
 ** select.c
@@ -195,15 +198,17 @@ void		add_arg_split(t_arg **arg, char *str);
 */
 void		bruteforce(t_llist *first, t_llist *second, int *sorted_arr);
 int			comp_max(int f, int s);
-t_bf		rfrs(t_llist *first, t_llist *second);
-t_bf		rfrrs(t_llist *first, t_llist *second);
-t_bf		rrfrs(t_llist *first, t_llist *second);
-t_bf		rrfrrs(t_llist *first, t_llist *second);
-t_bf			rf_(t_llist *first, t_llist *second);
-t_bf			_rs(t_llist *first, t_llist *second);
-t_bf			rrf_(t_llist *first, t_llist *second);
-t_bf			_rrs(t_llist *first, t_llist *second);
+void		rfrs(t_node **f_node, t_node **s_node);
+void		rfrrs(t_node **f_node, t_node **s_node);
+void		rrfrs(t_node **f_node, t_node **s_node);
+void		rrfrrs(t_node **f_node, t_node **s_node);
+void			rf_(t_node **f_node, t_node **s_node);
+void			_rs(t_node **f_node, t_node **s_node);
+void			rrf_(t_node **f_node, t_node **s_node);
+void			_rrs(t_node **f_node, t_node **s_node);
 int			check_sorted(t_llist *list);
+t_func_bf		*init_func_bf();
+t_bf		base_bf(t_llist *first, t_llist *second, t_func_bf *func_bf, int kinds);
 
 /*
 ** calc_bf.c

@@ -14,6 +14,8 @@ SRCS =	push_swap.c \
 		node.c \
 		arg.c \
 		select.c \
+		base_bf.c \
+		base_func2.c \
 		util.c \
 		test.c \
 		bruteforce.c \

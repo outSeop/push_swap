@@ -2,38 +2,78 @@
 
 void		bruteforce(t_llist *first, t_llist *second, int *sorted_arr)
 {
-	t_bf	bf[9];
-	int		max;
+	static t_func_bf	*func_bf = NULL;
+	t_bf				bf[9];
+	int					max;
+	int					check;
+	int					i;
 
 		// printf("%d %d %d\n", first->tail->value, second->head->value, first->head->value);
+	if (func_bf == NULL)
+		func_bf = init_func_bf();
 	max = get_max(first->head);
-	if (first->tail->value < second->head->value
-		&& second->head->value < first->head->value)
+	if (get_max(first->head) < second->head->value)
 	{
-		printf("==\n");
-		p(first, second);
+		sort_r(first, second, second->head->value);
 	}
 	else
 	{
-		// if (get_comp_max(irst->head) < get_max(second->head))
-		// 	bf[8] = get_biggest_case(first, second);
-		bf[RFRS] = rfrs(first, second);
-		bf[RFRRS] = rfrrs(first, second);
-		bf[RRFRS] = rrfrs(first, second);
-		bf[RRFRRS] = rrfrrs(first, second);
-		bf[RF_] = rf_(first, second);
-		bf[_RS] = _rs(first, second);
-		bf[RRF_] = rrf_(first, second);
-		bf[_RRS] = _rrs(first, second);
-		for (int i = 0; i < 9; i++)
-			printf("%d ", bf[i].count);
-		printf("\n");
-		move_bf(first, second, bf);
+		i = 0;
+		check = 0;
+		while (i < 8)
+		{
+			bf[i] = base_bf(first, second, func_bf, i);
+			if (bf[i].count != -1)
+				check = 1;
+			i++;
+		}
+		if (check == 0)
+			r(first);
+		else
+			move_bf(first, second, bf);
+		func_bf->min = INT_MAX;
 		if (check_sorted(first) == 0)
+		{
 			exit(0);
+		}
 	}
 }
 
+void		sort_r(t_llist *f_list, t_llist *s_list, int max)
+{
+	t_node	*node;
+	int		r_cnt;
+	int		rr_cnt;
+
+	node = f_list->head;
+	r_cnt = 0;
+	while (!(node->value < node->prev->value
+			&& node->prev->value < max))
+	{
+		rf_(&node, NULL);
+		r_cnt++;
+	}
+	node = f_list->head;
+	rr_cnt = 0;
+	while (!(node->value < node->prev->value
+			&& node->prev->value < max))
+	{
+		rrf_(&node, NULL);
+		rr_cnt++;
+	}
+	if (!r_cnt & !rr_cnt)
+		p(f_list, s_list);
+	else if (r_cnt > rr_cnt)
+	{
+		while (rr_cnt--)
+			rr(f_list);
+	}
+	else
+	{
+		while (r_cnt--)
+			r(f_list);
+	}
+}
 int			check_sorted(t_llist *list)
 {
 	int		i;
@@ -49,7 +89,6 @@ int			check_sorted(t_llist *list)
 	{
 		if (node->value > node->next->value)
 		{
-		printf("%d %d\n", node->value, node->next->value);
 			return (0);
 		}
 		node = node->next;
@@ -85,8 +124,6 @@ t_bf		get_biggest_case(t_llist *first, t_llist *second)
 	if (res1.count < res2.count)
 		return (res1);
 	return (res2);
-
-
 }
 
 int			comp_max(int f, int s)
@@ -94,217 +131,4 @@ int			comp_max(int f, int s)
 	if (f > s)
 		return (f);
 	return (s);
-}
-
-t_bf		rfrs(t_llist *first, t_llist *second)
-{
-	t_bf	res;
-	t_node	*f_node;
-	t_node	*s_node;
-	int		dead_line;
-
-	dead_line = first->size + second->size;
-	res.count = 0;
-	res.kind = RFRS;
-	f_node = first->head;
-	s_node = second->head;
-	while (!(f_node->prev->value < s_node->value
-			&& s_node->value < f_node->value))
-		{
-			f_node = f_node->next;
-			s_node = s_node->next;
-			res.count++;
-			if (res.count > dead_line)
-			{
-				res.count = -1;
-				return (res);
-			}
-		}
-	return (res);
-}
-
-t_bf		rfrrs(t_llist *first, t_llist *second)
-{
-	t_bf	res;
-	t_node	*f_node;
-	t_node	*s_node;
-	int		dead_line;
-	dead_line = first->size + second->size;
-	res.count = 0;
-	res.kind = RFRRS;
-	f_node = first->head;
-	s_node = second->head;
-	while (!(f_node->prev->value < s_node->value
-			&& s_node->value < f_node->value))
-		{
-			f_node = f_node->next;
-			s_node = s_node->prev;
-			res.count++;
-			res.count++;
-			if (res.count > dead_line)
-			{
-				res.count = -1;
-				return (res);
-			}
-		}
-	return (res);
-
-}
-
-t_bf			rrfrs(t_llist *first, t_llist *second)
-{
-
-	t_bf	res;
-	t_node	*f_node;
-	t_node	*s_node;
-	int		dead_line;
-	dead_line = first->size + second->size;
-	res.count = 0;
-	res.kind = RRFRS;
-	f_node = first->head;
-	s_node = second->head;
-	while (!(f_node->prev->value < s_node->value
-			&& s_node->value < f_node->value))
-		{
-			f_node = f_node->prev;
-			s_node = s_node->next;
-			res.count++;
-			res.count++;
-			if (res.count > dead_line)
-			{
-				res.count = -1;
-				return (res);
-			}
-		}
-	return (res);
-}
-
-t_bf			rrfrrs(t_llist *first, t_llist *second)
-{
-	t_bf	res;
-	t_node	*f_node;
-	t_node	*s_node;
-	int		dead_line;
-	dead_line = first->size + second->size;
-	res.count = 0;
-	res.kind = RRFRRS;
-	f_node = first->head;
-	s_node = second->head;
-	while (!(f_node->prev->value < s_node->value
-			&& s_node->value < f_node->value))
-		{
-			f_node = f_node->prev;
-			s_node = s_node->prev;
-			res.count++;
-			if (res.count > dead_line)
-			{
-				res.count = -1;
-				return (res);
-			}
-		}
-	return (res);
-}
-
-t_bf			rf_(t_llist *first, t_llist *second)
-{
-	t_bf	res;
-	t_node	*f_node;
-	t_node	*s_node;
-	int		dead_line;
-	dead_line = first->size + second->size;
-	res.count = 0;
-	res.kind = RF_;
-	f_node = first->head;
-	s_node = second->head;
-	while (!(f_node->prev->value < s_node->value
-			&& s_node->value < f_node->value))
-		{
-			f_node = f_node->next;
-			res.count++;
-			if (res.count > dead_line)
-			{
-				res.count = -1;
-				return (res);
-			}
-		}
-	return (res);
-
-}
-
-t_bf			_rs(t_llist *first, t_llist *second)
-{
-	t_bf	res;
-	t_node	*f_node;
-	t_node	*s_node;
-	int		dead_line;
-	dead_line = first->size + second->size;
-	res.count = 0;
-	res.kind = _RS;
-	f_node = first->head;
-	s_node = second->head;
-	while (!(f_node->prev->value < s_node->value
-			&& s_node->value < f_node->value))
-		{
-			s_node = s_node->next;
-			res.count++;
-			if (res.count > dead_line)
-			{
-				res.count = -1;
-				return (res);
-			}
-		}
-	return (res);
-
-}
-
-t_bf			rrf_(t_llist *first, t_llist *second)
-{
-	t_bf	res;
-	t_node	*f_node;
-	t_node	*s_node;
-	int		dead_line;
-	dead_line = first->size + second->size;
-	res.count = 0;
-	res.kind = RRF_;
-	f_node = first->head;
-	s_node = second->head;
-	while (!(f_node->prev->value < s_node->value
-			&& s_node->value < f_node->value))
-		{
-			f_node = f_node->prev;
-			res.count++;
-			if (res.count > dead_line)
-			{
-				res.count = -1;
-				return (res);
-			}
-		}
-	return (res);
-
-}
-
-t_bf			_rrs(t_llist *first, t_llist *second)
-{
-	t_bf	res;
-	t_node	*f_node;
-	t_node	*s_node;
-	int		dead_line;
-	dead_line = first->size + second->size;
-	res.count = 0;
-	res.kind = _RRS;
-	f_node = first->head;
-	s_node = second->head;
-	while (!(f_node->prev->value < s_node->value
-			&& s_node->value < f_node->value))
-		{
-			s_node = s_node->prev;
-			res.count++;
-			if (res.count > dead_line)
-			{
-				res.count = -1;
-				return (res);
-			}
-		}
-	return (res);
-
 }

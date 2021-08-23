@@ -22,7 +22,6 @@ int			bf_min(t_bf bf[])
 		}
 		i++;
 	}
-	printf("== %d %d\n", min.kind, min.count);
 	return (min.kind);
 }
 
